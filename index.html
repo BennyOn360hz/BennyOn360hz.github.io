@@ -3,31 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fun Games Hub</title>
+<title>Putin On The Ritz Fun Page</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
-  h1 { text-align: center; margin-top: 20px; }
-  .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 20px; }
-  .game { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: center; }
-  .game img { width: 100%; height: 120px; object-fit: cover; }
-  .game a { display: block; padding: 10px; text-decoration: none; color: #333; font-weight: bold; }
-  .game a:hover { background: #eee; }
+  body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 0; text-align: center; }
+  h1 { margin-top: 20px; }
+  #videoWrapper { margin: 20px auto; max-width: 600px; }
+  #gameArea { margin-top: 40px; position: relative; width: 500px; height: 300px; background: #cceeff; border: 2px solid #444; margin-left: auto; margin-right: auto; }
+  #player { position: absolute; width: 60px; height: 60px; background: url('https://i.imgur.com/6bK6cIh.png') no-repeat center/contain; top: 120px; left: 220px; }
+  #ritz { position: absolute; width: 80px; height: 80px; background: url('https://i.imgur.com/2Z4YvXg.png') no-repeat center/contain; top: 110px; left: 50px; }
+  button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
 </style>
 </head>
 <body>
 
-<h1>Fun Games Hub</h1>
-<div class="games">
-  <div class="game">
-    <img src="https://via.placeholder.com/150" alt="Game 1">
-    <a href="https://example.com/game1" target="_blank">Game 1</a>
-  </div>
-  <div class="game">
-    <img src="https://via.placeholder.com/150" alt="Game 2">
-    <a href="https://example.com/game2" target="_blank">Game 2</a>
-  </div>
-  <!-- Add more games here -->
+<h1>Putin On The Ritz — Fun Page</h1>
+
+<div id="videoWrapper">
+  <!-- You can replace the src with a real meme video link -->
+  <video width="100%" controls>
+    <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <p>(Replace this sample video with a “Putin On The Ritz” video you like.)</p>
 </div>
+
+<h2>Mini‑Game: Chase the Ritz!</h2>
+<div id="gameArea">
+  <div id="player"></div>
+  <div id="ritz"></div>
+</div>
+<button onclick="moveRitz()">Make Ritz Move!</button>
+
+<script>
+  const ritz = document.getElementById('ritz');
+  const gameArea = document.getElementById('gameArea');
+
+  function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+  }
+
+  function moveRitz() {
+    // move the Ritz cracker to a random spot
+    const maxX = gameArea.clientWidth - ritz.clientWidth;
+    const maxY = gameArea.clientHeight - ritz.clientHeight;
+    ritz.style.left = getRandomInt(maxX) + 'px';
+    ritz.style.top = getRandomInt(maxY) + 'px';
+  }
+
+  // initial position
+  moveRitz();
+</script>
 
 </body>
 </html>
