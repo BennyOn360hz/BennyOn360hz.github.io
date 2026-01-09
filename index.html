@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Classwork</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+header {
+  background: #020617;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+button, input {
+  background: #1e293b;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+}
+#controls {
+  padding: 10px;
+}
+#menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+canvas {
+  display: block;
+  margin: auto;
+  background: black;
+  border-radius: 10px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div>Assignments</div>
+  <button onclick="toggleDisguise()">Toggle Notes</button>
+</header>
+
+<div id="controls">
+  <input placeholder="Search…" oninput="renderMenu(this.value)">
+</div>
+
+<div id="menu"></div>
+<div id="game"></div>
+
+<script>
+const menu = document.getElementById("menu");
+const gameDiv = document.getElementById("game");
+let disguise = false;
+
+function toggleDisguise() {
+  disguise = !disguise;
+  document.body.style.background = disguise ? "#fff" : "#0f172a";
+  document.body.style.color = disguise ? "#000" : "#fff";
+}
+
+function saveScore(id, score) {
+  const s = JSON.parse(localStorage.getItem("scores") || "{}");
+  if (!s[id] || score > s[id]) {
+    s[id] = score;
+    localStorage.setItem("scores", JSON.stringify(s));
+  }
+}
+
+function getScore(id) {
+  const s = JSON.parse(localStorage.getItem("scores") || "{}");
+  return s[id] || 0;
+}
+
+/* ---------- GAME LIST ---------- */
+const games = [
+  { id: "snake", name: "Snake", type: "snake" },
+  { id: "pong", name: "Pong", type: "pong" },
+  { id: "tetris", name: "Tetris", type: "tetris" }
+];
+
+for (let i = 1; i <= 1000; i++) {
+  games.push({
+    id: "runner" + i,
+    name: "Activity " + i,
+    type: "runner",
+    speed: 2 + (i % 6),
+    gravity: 0.4 + (i % 4) * 0.2
+  });
+}
+
+/* ---------- MENU ---------- */
+function renderMenu(filter = "") {
+  menu.innerHTML = "";
+  games.filter(g => g.name.toLowerCase().includes(filter.toLowerCase()))
+    .forEach(g => {
+      const b = document.createElement("button");
+      b.textContent = `${g.name} • Best ${getScore(g.id)}`;
+      b.onclick = () => startGame(g);
+      menu.appendChild(b);
+    });
+}
+renderMenu();
+
+/* ---------- GAME LOADER ---------- */
+function startGame(game) {
+  gameDiv.innerHTML = "";
+  if (game.type === "runner") runner(game);
+  if (game.type === "snake") snake();
+  if (game.type === "pong") pong();
+  if (game.type === "tetris") tetris();
+}
+
+/* ---------- RUNNER ---------- */
+function runner(game) {
+  const c = document.createElement("canvas");
+  c.width = 320; c.height = 420;
+  gameDiv.appendChild(c);
+  const ctx = c.getContext("2d");
+
+  let y = 360, vy = 0, obs = 340, score = 0;
+  c.ontouchstart = () => { if (y >= 360) vy = -10; };
+
+  function loop() {
+    ctx.clearRect(0,0,320,420);
+    vy += game.gravity;
+    y += vy;
+    if (y > 360) { y = 360; vy = 0; }
+
+    obs -= game.speed * 2;
+    if (obs < -20) { obs = 340; score++; }
+
+    if (obs < 80 && obs > 40 && y > 340) {
+      saveScore(game.id, score);
+      alert("Score: " + score);
+      return;
+    }
+
+    ctx.fillRect(50,y,20,20);
+    ctx.fillRect(obs,380,20,40);
+    ctx.fillText(score,10,20);
+    requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+/* ---------- SNAKE ---------- */
+function snake() {
+  const c = document.createElement("canvas");
+  c.width = 320; c.height = 400;
+  gameDiv.appendChild(c);
+  const ctx = c.getContext("2d");
+  const grid = 20;
+  let s = [{x:160,y:200}], dx = grid, dy = 0;
+  let food = {x:100,y:100}, score = 0;
+
+  document.onkeydown = e => {
+    if (e.key === "ArrowUp" && dy === 0) dx=0,dy=-grid;
+    if (e.key === "ArrowDown" && dy === 0) dx=0,dy=grid;
+    if (e.key === "ArrowLeft" && dx === 0) dx=-grid,dy=0;
+    if (e.key === "ArrowRight" && dx === 0) dx=grid,dy=0;
+  };
+
+  function loop() {
