@@ -7,26 +7,45 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    text-align: center;
     background: #f0f0f0;
     margin: 0;
     padding: 20px;
+    text-align: center;
   }
+
   h1 {
     margin-bottom: 20px;
+    color: #333;
   }
-  iframe {
-    border: 2px solid #333;
+
+  #scratchGame {
+    border: 3px solid #333;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  p {
+    color: #555;
+    margin-top: 10px;
   }
 </style>
 </head>
 <body>
 
-<h1>Play My Scratch Game!</h1>
+<h1>Bentley's Bussin Game!!!</h1>
 
-<!-- Replace the src with your Scratch project URL -->
-<iframe src="https://scratch.mit.edu/projects/1263330185/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen></iframe>
+<!-- Scratch iframe embed -->
+<iframe
+    id="scratchGame"
+    src="https://scratch.mit.edu/projects/1263330635/embed"
+    allowtransparency="true"
+    width="600"
+    height="480"
+    frameborder="0"
+    scrolling="no">
+</iframe>
+
+<p>If the game doesn’t load above, <a href="https://scratch.mit.edu/projects/1263330635" target="_blank">click here to open it on Scratch</a>.</p>
 
 </body>
 </html>
