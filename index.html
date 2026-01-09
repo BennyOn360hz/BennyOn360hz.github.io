@@ -1,267 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Classwork</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Games Hub</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0f172a;
-  color: white;
-}
-header {
-  background: #020617;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-button, input {
-  background: #1e293b;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-}
-#controls {
-  padding: 10px;
-}
-#menu {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 10px;
-  padding: 10px;
-}
-canvas {
-  display: block;
-  margin: auto;
-  background: black;
-  border-radius: 10px;
-}
+  body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; }
+  h1 { text-align: center; margin-top: 20px; }
+  .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; padding: 20px; }
+  .game { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-align: center; }
+  .game img { width: 100%; height: 120px; object-fit: cover; }
+  .game a { display: block; padding: 10px; text-decoration: none; color: #333; font-weight: bold; }
+  .game a:hover { background: #eee; }
 </style>
 </head>
 <body>
 
-<header>
-  <div>Assignments</div>
-  <button onclick="toggleDisguise()">Toggle Notes</button>
-</header>
-
-<div id="controls">
-  <input placeholder="Search…" onkeyup="filterGames(this.value)">
+<h1>Fun Games Hub</h1>
+<div class="games">
+  <div class="game">
+    <img src="https://via.placeholder.com/150" alt="Game 1">
+    <a href="https://example.com/game1" target="_blank">Game 1</a>
+  </div>
+  <div class="game">
+    <img src="https://via.placeholder.com/150" alt="Game 2">
+    <a href="https://example.com/game2" target="_blank">Game 2</a>
+  </div>
+  <!-- Add more games here -->
 </div>
-
-<div id="menu"></div>
-<div id="game"></div>
-
-<script>
-var menu = document.getElementById("menu");
-var gameDiv = document.getElementById("game");
-var disguise = false;
-
-function toggleDisguise() {
-  disguise = !disguise;
-  document.body.style.background = disguise ? "#ffffff" : "#0f172a";
-  document.body.style.color = disguise ? "#000000" : "#ffffff";
-}
-
-function saveScore(id, score) {
-  var data = localStorage.getItem("scores");
-  data = data ? JSON.parse(data) : {};
-  if (!data[id] || score > data[id]) {
-    data[id] = score;
-    localStorage.setItem("scores", JSON.stringify(data));
-  }
-}
-
-function getScore(id) {
-  var data = localStorage.getItem("scores");
-  data = data ? JSON.parse(data) : {};
-  return data[id] || 0;
-}
-
-/* ---------- GAME LIST ---------- */
-var games = [
-  { id: "snake", name: "Snake", type: "snake" },
-  { id: "pong", name: "Pong", type: "pong" }
-];
-
-for (var i = 1; i <= 1000; i++) {
-  games.push({
-    id: "run" + i,
-    name: "Activity " + i,
-    type: "runner",
-    speed: 2 + (i % 5)
-  });
-}
-
-/* ---------- MENU ---------- */
-function renderMenu(list) {
-  menu.innerHTML = "";
-  for (var i = 0; i < list.length; i++) {
-    var g = list[i];
-    var b = document.createElement("button");
-    b.textContent = g.name + " • Best " + getScore(g.id);
-    b.onclick = (function(game) {
-      return function() { startGame(game); };
-    })(g);
-    menu.appendChild(b);
-  }
-}
-
-function filterGames(text) {
-  var out = [];
-  text = text.toLowerCase();
-  for (var i = 0; i < games.length; i++) {
-    if (games[i].name.toLowerCase().indexOf(text) !== -1) {
-      out.push(games[i]);
-    }
-  }
-  renderMenu(out);
-}
-
-renderMenu(games);
-
-/* ---------- GAME LOADER ---------- */
-function startGame(game) {
-  gameDiv.innerHTML = "";
-  if (game.type === "runner") runner(game);
-  if (game.type === "snake") snake();
-  if (game.type === "pong") pong();
-}
-
-/* ---------- RUNNER ---------- */
-function runner(game) {
-  var c = document.createElement("canvas");
-  c.width = 320;
-  c.height = 420;
-  gameDiv.appendChild(c);
-  var ctx = c.getContext("2d");
-
-  var y = 360, vy = 0, obs = 340, score = 0;
-
-  c.ontouchstart = function() {
-    if (y >= 360) vy = -10;
-  };
-
-  function loop() {
-    ctx.clearRect(0,0,320,420);
-    vy += 0.6;
-    y += vy;
-    if (y > 360) { y = 360; vy = 0; }
-
-    obs -= game.speed * 2;
-    if (obs < -20) { obs = 340; score++; }
-
-    if (obs < 80 && obs > 40 && y > 340) {
-      saveScore(game.id, score);
-      alert("Score: " + score);
-      return;
-    }
-
-    ctx.fillRect(50,y,20,20);
-    ctx.fillRect(obs,380,20,40);
-    ctx.fillText(score,10,20);
-
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-/* ---------- SNAKE ---------- */
-function snake() {
-  var c = document.createElement("canvas");
-  c.width = 320;
-  c.height = 400;
-  gameDiv.appendChild(c);
-  var ctx = c.getContext("2d");
-
-  var grid = 20;
-  var snake = [{x:160,y:200}];
-  var dx = grid, dy = 0;
-  var food = {x:100,y:100};
-  var score = 0;
-
-  document.onkeydown = function(e) {
-    if (e.keyCode === 37 && dx === 0) { dx = -grid; dy = 0; }
-    if (e.keyCode === 38 && dy === 0) { dx = 0; dy = -grid; }
-    if (e.keyCode === 39 && dx === 0) { dx = grid; dy = 0; }
-    if (e.keyCode === 40 && dy === 0) { dx = 0; dy = grid; }
-  };
-
-  function loop() {
-    ctx.clearRect(0,0,320,400);
-    var head = {x:snake[0].x+dx, y:snake[0].y+dy};
-    snake.unshift(head);
-
-    if (head.x === food.x && head.y === food.y) {
-      food.x = Math.floor(Math.random()*16)*grid;
-      food.y = Math.floor(Math.random()*20)*grid;
-      score++;
-    } else {
-      snake.pop();
-    }
-
-    if (head.x < 0 || head.y < 0 || head.x >= 320 || head.y >= 400) {
-      saveScore("snake", score);
-      alert("Score: " + score);
-      return;
-    }
-
-    ctx.fillStyle = "lime";
-    for (var i = 0; i < snake.length; i++) {
-      ctx.fillRect(snake[i].x, snake[i].y, grid-2, grid-2);
-    }
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x, food.y, grid-2, grid-2);
-
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-
-/* ---------- PONG ---------- */
-function pong() {
-  var c = document.createElement("canvas");
-  c.width = 320;
-  c.height = 400;
-  gameDiv.appendChild(c);
-  var ctx = c.getContext("2d");
-
-  var py = 160, bx = 160, by = 200, vx = 3, vy = 3, score = 0;
-
-  c.ontouchmove = function(e) {
-    py = e.touches[0].clientY - 80;
-  };
-
-  function loop() {
-    ctx.clearRect(0,0,320,400);
-    bx += vx;
-    by += vy;
-
-    if (by < 0 || by > 400) vy = -vy;
-    if (bx < 20 && by > py && by < py + 80) {
-      vx = -vx;
-      score++;
-    }
-
-    if (bx < 0) {
-      saveScore("pong", score);
-      alert("Score: " + score);
-      return;
-    }
-
-    ctx.fillRect(10,py,10,80);
-    ctx.beginPath();
-    ctx.arc(bx,by,6,0,Math.PI*2);
-    ctx.fill();
-
-    requestAnimationFrame(loop);
-  }
-  loop();
-}
-</script>
 
 </body>
 </html>
