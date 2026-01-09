@@ -102,7 +102,7 @@ function renderMenu(filter = "") {
   games.filter(g => g.name.toLowerCase().includes(filter.toLowerCase()))
     .forEach(g => {
       const b = document.createElement("button");
-      b.textContent = `${g.name} • Best ${getScore(g.id)}`;
+      b.textContent = g.name + " • Best " + getScore(g.id);
       b.onclick = () => startGame(g);
       menu.appendChild(b);
     });
