@@ -68,6 +68,11 @@
       border: 1px solid #1e293b;
       border-radius: 12px;
       padding: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .game:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
     }
     .game h4 {
       margin: 8px 0;
@@ -78,6 +83,19 @@
       height: 200px;
       border: none;
       border-radius: 8px;
+      display: block;
+    }
+    input[type="text"] {
+      width:100%;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid #1e293b;
+      margin-bottom:20px;
+      background:#020617;
+      color:#e5e7eb;
+    }
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
@@ -105,7 +123,7 @@
 
     <div class="card" id="games">
       <h2>Game Arcade</h2>
-      <input type="text" id="gameSearch" placeholder="Search games..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #1e293b;margin-bottom:20px;background:#020617;color:#e5e7eb;" onkeyup="filterGames()" />
+      <input type="text" id="gameSearch" placeholder="Search games..." onkeyup="filterGames()" />
       <div id="gameGrid"><p>Loading games…</p></div>
     </div>
   </main>
@@ -116,7 +134,7 @@
 
   <script>
     function sayHi() {
-      alert("Yo! This was made by me aka Bentley and its bussin!!.");
+      alert("Yo! This was made by me aka Bentley and it's bussin!!.");
     }
 
     const gameGrid = document.getElementById("gameGrid");
@@ -126,26 +144,90 @@
       {name: "Slope", url: "https://slopegame.io"},
       {name: "Run 3", url: "https://run3.io"},
       {name: "Flappy Bird", url: "https://flappybird.io"},
-      {name: "Retro Bowl", url: "https://retrobowl.me"}
+      {name: "Retro Bowl", url: "https://retrobowl.me"},
+      {name: "Agar.io", url: "https://agar.io"},
+      {name: "Slither.io", url: "https://slither.io"},
+      {name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/"},
+      {name: "Paper.io 2", url: "https://paper-io.com/"},
+      {name: "Krunker.io", url: "https://krunker.io/"},
+      {name: "Bonk.io", url: "https://bonk.io/"},
+      {name: "Tank Trouble", url: "https://tanktrouble.com/"},
+      {name: "Shell Shockers", url: "https://shellshock.io/"},
+      {name: "Diep.io", url: "https://diep.io/"},
+      {name: "Superhot", url: "https://superhotgame.com/"},
+      {name: "Tetris", url: "https://tetris.com/play-tetris"},
+      {name: "Pac-Man", url: "https://www.google.com/logos/2010/pacman10-i.html"},
+      {name: "Frogger", url: "https://froggerclassic.com/"},
+      {name: "Stick Fight: The Game Online", url: "https://stickfightgame.com/"},
+      {name: "Little Alchemy 2", url: "https://littlealchemy2.com/"},
+      {name: "2048", url: "https://play2048.co/"},
+      {name: "Happy Wheels", url: "https://totaljerkface.com/happy_wheels.tjf"},
+      {name: "Line Rider", url: "https://linerider.com/"},
+      {name: "QWOP", url: "https://www.foddy.net/Athletics.html"},
+      {name: "World’s Biggest Pac-Man", url: "https://worldsbiggestpacman.com/"},
+      {name: "Run 2", url: "https://www.run2.io/"},
+      {name: "Zombs Royale", url: "https://zombsroyale.io/"},
+      {name: "Vex 3", url: "https://vex3.io/"},
+      {name: "Vex 4", url: "https://vex4.io/"},
+      {name: "Raft Wars", url: "https://www.coolmathgames.com/0-raft-wars"},
+      {name: "Madalin Stunt Cars 2", url: "https://www.crazygames.com/game/madalin-stunt-cars-2"},
+      {name: "Moto X3M", url: "https://www.motox3m.io/"},
+      {name: "Paper Minecraft", url: "https://paper-minecraft.com/"},
+      {name: "Duck Life", url: "https://www.coolmathgames.com/0-duck-life"},
+      {name: "Fireboy and Watergirl", url: "https://www.coolmathgames.com/0-fireboy-and-watergirl-1-forest-temple"},
+      {name: "Clustertruck", url: "https://www.crazygames.com/game/clustertruck"},
+      {name: "Tank Trouble 2", url: "https://tanktrouble2.com/"},
+      {name: "Flip Master", url: "https://www.crazygames.com/game/flip-master"},
+      {name: "Rooftop Snipers", url: "https://www.crazygames.com/game/rooftop-snipers"},
+      {name: "Basketball Stars", url: "https://www.crazygames.com/game/basketball-stars"},
+      {name: "Madness Interactive", url: "https://www.crazygames.com/game/madness-interactive"},
+      {name: "Slope Racing", url: "https://www.crazygames.com/game/slope-racing"},
+      {name: "Snake", url: "https://playsnake.org/"},
+      {name: "Temple Run Online", url: "https://www.crazygames.com/game/temple-run"},
+      {name: "Soccer Physics", url: "https://www.crazygames.com/game/soccer-physics"},
+      {name: "Super Smash Flash 2", url: "https://www.super-smash-flash.com/ssf2/"},
+      {name: "Pixel Gun 3D", url: "https://pixelgun3d.io/"},
+      {name: "Slope Unblocked", url: "https://slopeunblocked.org/"},
+      {name: "Basketball Legends", url: "https://www.crazygames.com/game/basketball-legends"},
+      {name: "Moto X3M Pool Party", url: "https://www.crazygames.com/game/moto-x3m-pool-party"}
     ];
-
-    while (games.length < 50) {
-      games.push({name: "Arcade Game " + (games.length+1), url: "https://geometrydash.io"});
-    }
 
     gameGrid.innerHTML = "";
 
+    // Create game cards with placeholder for iframe
     games.forEach(game => {
       const div = document.createElement("div");
       div.className = "game";
       div.dataset.name = game.name.toLowerCase();
+      div.dataset.url = game.url; // store URL for lazy load
       div.innerHTML = `
         <h4>${game.name}</h4>
-        <iframe src="${game.url}" loading="lazy"></iframe>
+        <div class="iframe-placeholder" style="height:200px;"></div>
         <button onclick="fullscreen(this)">Fullscreen</button>
       `;
       gameGrid.appendChild(div);
     });
+
+    // IntersectionObserver to lazy load iframes
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const div = entry.target;
+          const placeholder = div.querySelector(".iframe-placeholder");
+          if (!placeholder.dataset.loaded) {
+            const iframe = document.createElement("iframe");
+            iframe.src = div.dataset.url;
+            iframe.title = div.dataset.name;
+            iframe.loading = "lazy";
+            placeholder.replaceWith(iframe);
+            placeholder.dataset.loaded = true;
+          }
+          observer.unobserve(div);
+        }
+      });
+    }, {rootMargin: "200px 0px"});
+
+    document.querySelectorAll(".game").forEach(game => observer.observe(game));
 
     function filterGames() {
       const search = document.getElementById("gameSearch").value.toLowerCase();
@@ -155,8 +237,14 @@
     }
 
     function fullscreen(btn) {
-      const iframe = btn.previousElementSibling;
-      if (iframe.requestFullscreen) iframe.requestFullscreen();
+      const iframe = btn.previousElementSibling.tagName === "IFRAME" ? btn.previousElementSibling : null;
+      if (iframe) {
+        if (iframe.requestFullscreen) iframe.requestFullscreen();
+        else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+        else alert("Fullscreen not supported for this browser.");
+      } else {
+        alert("Game hasn't loaded yet!");
+      }
     }
   </script>
 </body>
