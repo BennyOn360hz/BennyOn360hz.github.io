@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benny's Bussin Website!!!</title>
+  <title>Bentley's Bussin Website!!!</title>
   <style>
     body {
       margin: 0;
@@ -62,7 +62,7 @@
 </head>
 <body>
   <header>
-    <h1>Bentley's Bussin Website!</h1>
+    <h1>Bentley's Bussin Website!!!</h1>
     <p>I made this myself 😎</p>
     <nav style="margin-top:16px;">
       <a href="#home" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Home</a>
@@ -85,23 +85,64 @@
     </div>
 
     <div class="card" id="games">
-      <h2>Games</h2>
-      <p>More games coming soon. Here are a few starters:</p>
-      <ul>
-        <li><a href="https://scratch.mit.edu" target="_blank" style="color:#38bdf8;">Scratch Games</a></li>
-        <li><a href="https://geometrydash.io" target="_blank" style="color:#38bdf8;">Geometry Dash</a></li>
-        <li><a href="https://classic.minecraft.net" target="_blank" style="color:#38bdf8;">Minecraft Classic</a></li>
-      </ul>
+  <h2>Game Arcade</h2>
+  <input type="text" id="gameSearch" placeholder="Search games..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #1e293b;margin-bottom:20px;background:#020617;color:#e5e7eb;" onkeyup="filterGames()" />
+
+  <div id="gameGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
+
+    <!-- GAME CARD TEMPLATE -->
+    <div class="game" data-name="Minecraft Classic">
+      <h4>Minecraft Classic</h4>
+      <iframe src="https://classic.minecraft.net" loading="lazy"></iframe>
+      <button onclick="fullscreen(this)">Fullscreen</button>
     </div>
+
+    <div class="game" data-name="Geometry Dash">
+      <h4>Geometry Dash</h4>
+      <iframe src="https://geometrydash.io" loading="lazy"></iframe>
+      <button onclick="fullscreen(this)">Fullscreen</button>
+    </div>
+
+    <div class="game" data-name="Slope">
+      <h4>Slope</h4>
+      <iframe src="https://slopegame.io" loading="lazy"></iframe>
+      <button onclick="fullscreen(this)">Fullscreen</button>
+    </div>
+
+    <div class="game" data-name="Run 3">
+      <h4>Run 3</h4>
+      <iframe src="https://run3.io" loading="lazy"></iframe>
+      <button onclick="fullscreen(this)">Fullscreen</button>
+    </div>
+
+    <div class="game" data-name="Flappy Bird">
+      <h4>Flappy Bird</h4>
+      <iframe src="https://flappybird.io" loading="lazy"></iframe>
+      <button onclick="fullscreen(this)">Fullscreen</button>
+    </div>
+
+    <div class="game" data-name="Retro Bowl">
+      <h4>Retro Bowl</h4>
+      <iframe src="https://retrobowl.me" loading="lazy"></iframe>
+      <button onclick="fullscreen(this)">Fullscreen</button>
+    </div>
+
+    <!-- DUPLICATED GAMES FOR LARGE ARCADE -->
+    <!-- You can swap any URL with another HTML5 game -->
+
+    ${Array.from({length:44},(_,i)=>`<div class=\"game\" data-name=\"Arcade Game ${i+1}\"><h4>Arcade Game ${i+1}</h4><iframe src=\"https://games.crazygames.com/en_US/geometry-dash-online/index.html\" loading=\"lazy\"></iframe><button onclick=\"fullscreen(this)\">Fullscreen</button></div>`).join('')}
+
+  </div>
+</div>
   </main>
 
   <footer>
-    © 2026 Bentley's Bussin Website!
+    © 2026 Bentley's Bussin Website!!!
   </footer>
 
   <script>
     function sayHi() {
-      alert("Yo! Its Bentley and my website works.");
+      alert("Yo! This was made by me aka Bentley and its bussin!!.");
     }
   </script>
 </body>
