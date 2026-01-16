@@ -1,149 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bentley's Bussin Website!!!</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-    }
-    header {
-      padding: 24px;
-      text-align: center;
-      background: #020617;
-      border-bottom: 1px solid #1e293b;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
-    header p {
-      margin-top: 8px;
-      color: #94a3b8;
-    }
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .card {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .card h2 {
-      margin-top: 0;
-    }
-    button {
-      background: #38bdf8;
-      color: #020617;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #94a3b8;
-      border-top: 1px solid #1e293b;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bentley's Bussin Website!!!</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+header {
+  padding: 24px;
+  text-align: center;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+
+main {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.card {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+#gameGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.game {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.game h4 {
+  margin: 8px 0;
+  text-align: center;
+}
+
+.game iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+  border-radius: 8px;
+}
+
+button {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>Bentley's Bussin Website!!!</h1>
-    <p>I made this myself 😎</p>
-    <nav style="margin-top:16px;">
-      <a href="#home" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Home</a>
-      <a href="#games" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Games</a>
-    </nav>
-  </header>
 
-  <main id="home">
-    <div class="card">
-      <h2>About Me</h2>
-      <p>
-        This is my personal website. I can put games, videos, projects, or anything I want here.
-      </p>
-    </div>
+<header>
+  <h1>Bentley's Bussin Website!!!</h1>
+  <p>I made this myself 😎</p>
+</header>
 
-    <div class="card">
-      <h2>Cool Stuff</h2>
-      <p>Click the button below just to prove this site actually does something.</p>
-      <button onclick="sayHi()">Click me</button>
-    </div>
+<main>
+  <div class="card">
+    <h2>Game Arcade</h2>
 
-    <div class="card" id="games">
-  <h2>Game Arcade</h2>
-  <input type="text" id="gameSearch" placeholder="Search games..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #1e293b;margin-bottom:20px;background:#020617;color:#e5e7eb;" onkeyup="filterGames()" />
+    <input
+      id="gameSearch"
+      placeholder="Search games..."
+      style="width:100%;padding:12px;border-radius:8px;border:1px solid #1e293b;background:#020617;color:#e5e7eb;"
+      onkeyup="filterGames()"
+    />
 
-  <div id="gameGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
+    <br><br>
 
-    <!-- GAME CARD TEMPLATE -->
-    <div class="game" data-name="Minecraft Classic">
-      <h4>Minecraft Classic</h4>
-      <iframe src="https://classic.minecraft.net" loading="lazy"></iframe>
-      <button onclick="fullscreen(this)">Fullscreen</button>
-    </div>
-
-    <div class="game" data-name="Geometry Dash">
-      <h4>Geometry Dash</h4>
-      <iframe src="https://geometrydash.io" loading="lazy"></iframe>
-      <button onclick="fullscreen(this)">Fullscreen</button>
-    </div>
-
-    <div class="game" data-name="Slope">
-      <h4>Slope</h4>
-      <iframe src="https://slopegame.io" loading="lazy"></iframe>
-      <button onclick="fullscreen(this)">Fullscreen</button>
-    </div>
-
-    <div class="game" data-name="Run 3">
-      <h4>Run 3</h4>
-      <iframe src="https://run3.io" loading="lazy"></iframe>
-      <button onclick="fullscreen(this)">Fullscreen</button>
-    </div>
-
-    <div class="game" data-name="Flappy Bird">
-      <h4>Flappy Bird</h4>
-      <iframe src="https://flappybird.io" loading="lazy"></iframe>
-      <button onclick="fullscreen(this)">Fullscreen</button>
-    </div>
-
-    <div class="game" data-name="Retro Bowl">
-      <h4>Retro Bowl</h4>
-      <iframe src="https://retrobowl.me" loading="lazy"></iframe>
-      <button onclick="fullscreen(this)">Fullscreen</button>
-    </div>
-
-    <!-- DUPLICATED GAMES FOR LARGE ARCADE -->
-    <!-- You can swap any URL with another HTML5 game -->
-
-    ${Array.from({length:44},(_,i)=>`<div class=\"game\" data-name=\"Arcade Game ${i+1}\"><h4>Arcade Game ${i+1}</h4><iframe src=\"https://games.crazygames.com/en_US/geometry-dash-online/index.html\" loading=\"lazy\"></iframe><button onclick=\"fullscreen(this)\">Fullscreen</button></div>`).join('')}
-
+    <div id="gameGrid"></div>
   </div>
-</div>
-  </main>
+</main>
 
-  <footer>
-    © 2026 Bentley's Bussin Website!!!
-  </footer>
+<footer>
+  © 2026 Bentley's Bussin Website!!!
+</footer>
 
-  <script>
-    function sayHi() {
-      alert("Yo! This was made by me aka Bentley and its bussin!!.");
-    }
-  </script>
-</body>
-</html>
+<script>
+const games = [
+  { name: "Minecraft Classic", url: "https://classic.minecraft.net" },
+  { name: "Geometry Dash", url: "https://geometrydash.io" },
+  { name: "Slope", url: "https://slopegame.io" },
+  { name: "Run 3", url: "https://run3.io" },
+  { name: "Flappy Bird", url: "https://flappybird.io" },
+  { name: "Retro Bowl", url: "https://retrobowl.me" },
+];
+
+// duplicate to reach 50+
+while (games.length < 50) {
+  games.push({
+    name: "Arcade Game " + games.length,
+    url: "https://geometrydash.io"
+  });
+}
+
+const grid = document.getElementById("gameGrid");
+
+games.forEach(game => {
+  const div = document.createElement("div");
+  div.className = "g
