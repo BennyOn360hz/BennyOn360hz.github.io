@@ -1,251 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bentley's Bussin Website!!!</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-    }
-    header {
-      padding: 24px;
-      text-align: center;
-      background: #020617;
-      border-bottom: 1px solid #1e293b;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
-    header p {
-      margin-top: 8px;
-      color: #94a3b8;
-    }
-    main {
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    .card {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 24px;
-    }
-    .card h2 {
-      margin-top: 0;
-    }
-    button {
-      background: #38bdf8;
-      color: #020617;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #94a3b8;
-      border-top: 1px solid #1e293b;
-    }
-    #gameGrid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .game {
-      background: #020617;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 12px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .game:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
-    .game h4 {
-      margin: 8px 0;
-      text-align: center;
-    }
-    .game iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-      border-radius: 8px;
-      display: block;
-    }
-    input[type="text"] {
-      width:100%;
-      padding:12px;
-      border-radius:8px;
-      border:1px solid #1e293b;
-      margin-bottom:20px;
-      background:#020617;
-      color:#e5e7eb;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bentley's Bussin Website!!!</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+header {
+  padding: 24px;
+  text-align: center;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+}
+header h1 { margin:0; font-size:2.2rem;}
+header p { margin-top:8px; color:#94a3b8;}
+main { max-width:1100px; margin:40px auto; padding:0 20px;}
+.card { background:#020617; border:1px solid #1e293b; border-radius:12px; padding:24px; margin-bottom:24px;}
+.card h2 { margin-top:0;}
+button { background:#38bdf8; color:#020617; border:none; padding:12px 18px; border-radius:8px; font-size:1rem; cursor:pointer;}
+button:hover { opacity:0.9;}
+footer { text-align:center; padding:20px; color:#94a3b8; border-top:1px solid #1e293b;}
+#gameGrid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:20px;}
+.game { background:#020617; border:1px solid #1e293b; border-radius:12px; padding:12px; transition: transform 0.2s, box-shadow 0.2s;}
+.game:hover { transform:translateY(-4px); box-shadow:0 4px 12px rgba(0,0,0,0.5);}
+.game h4 { margin:8px 0; text-align:center;}
+.iframe-placeholder { display:flex; justify-content:center; align-items:center; height:200px; background:#1e293b; border-radius:8px; cursor:pointer; color:#38bdf8; font-weight:bold; }
+input[type="text"] { width:100%; padding:12px; border-radius:8px; border:1px solid #1e293b; margin-bottom:20px; background:#020617; color:#e5e7eb;}
+html { scroll-behavior: smooth;}
+</style>
 </head>
 <body>
-  <header>
-    <h1>Bentley's Bussin Website!!!</h1>
-    <p>I made this myself 😎</p>
-    <nav style="margin-top:16px;">
-      <a href="#home" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Home</a>
-      <a href="#games" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Games</a>
-    </nav>
-  </header>
+<header>
+  <h1>Bentley's Bussin Website!!!</h1>
+  <p>I made this myself 😎</p>
+  <nav style="margin-top:16px;">
+    <a href="#home" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Home</a>
+    <a href="#games" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Games</a>
+  </nav>
+</header>
 
-  <main id="home">
-    <div class="card">
-      <h2>About Me</h2>
-      <p>This is my personal website. I can put games, videos, projects, or anything I want here.</p>
-    </div>
+<main id="home">
+  <div class="card">
+    <h2>About Me</h2>
+    <p>This is my personal website. I can put games, videos, projects, or anything I want here.</p>
+  </div>
 
-    <div class="card">
-      <h2>Cool Stuff</h2>
-      <p>Click the button below just to prove this site actually does something.</p>
-      <button onclick="sayHi()">Click me</button>
-    </div>
+  <div class="card">
+    <h2>Cool Stuff</h2>
+    <p>Click the button below just to prove this site actually does something.</p>
+    <button onclick="sayHi()">Click me</button>
+  </div>
 
-    <div class="card" id="games">
-      <h2>Game Arcade</h2>
-      <input type="text" id="gameSearch" placeholder="Search games..." onkeyup="filterGames()" />
-      <div id="gameGrid"><p>Loading games…</p></div>
-    </div>
-  </main>
+  <div class="card" id="games">
+    <h2>Game Arcade</h2>
+    <input type="text" id="gameSearch" placeholder="Search games..." />
+    <div id="gameGrid"></div>
+  </div>
+</main>
 
-  <footer>
-    © 2026 Bentley's Bussin Website!!!
-  </footer>
+<footer>© 2026 Bentley's Bussin Website!!!</footer>
 
-  <script>
-    function sayHi() {
-      alert("Yo! This was made by me aka Bentley and it's bussin!!.");
+<script>
+function sayHi(){ alert("Yo! This was made by me aka Bentley and it's bussin!!."); }
+
+const gameGrid = document.getElementById("gameGrid");
+const games = [
+  {name:"Minecraft Classic", url:"https://classic.minecraft.net"},
+  {name:"Geometry Dash", url:"https://geometrydash.io"},
+  {name:"Slope", url:"https://slopegame.io"},
+  {name:"Run 3", url:"https://run3.io"},
+  {name:"Flappy Bird", url:"https://flappybird.io"},
+  {name:"Retro Bowl", url:"https://retrobowl.me"},
+  {name:"Agar.io", url:"https://agar.io"},
+  {name:"Slither.io", url:"https://slither.io"},
+  {name:"Cookie Clicker", url:"https://orteil.dashnet.org/cookieclicker/"},
+  {name:"Paper.io 2", url:"https://paper-io.com/"},
+  {name:"Krunker.io", url:"https://krunker.io"},
+  {name:"Bonk.io", url:"https://bonk.io/"},
+  {name:"Tank Trouble", url:"https://tanktrouble.com/"},
+  {name:"Shell Shockers", url:"https://shellshock.io/"},
+  {name:"Diep.io", url:"https://diep.io/"},
+  {name:"Superhot", url:"https://superhotgame.com/"},
+  {name:"Tetris", url:"https://tetris.com/play-tetris"},
+  {name:"Pac-Man", url:"https://www.google.com/logos/2010/pacman10-i.html"},
+  {name:"Frogger", url:"https://froggerclassic.com/"},
+  {name:"Stick Fight: The Game Online", url:"https://stickfightgame.com/"},
+  {name:"Little Alchemy 2", url:"https://littlealchemy2.com/"},
+  {name:"2048", url:"https://play2048.co/"},
+  {name:"Happy Wheels", url:"https://totaljerkface.com/happy_wheels.tjf"},
+  {name:"Line Rider", url:"https://linerider.com/"},
+  {name:"QWOP", url:"https://www.foddy.net/Athletics.html"},
+  {name:"World’s Biggest Pac-Man", url:"https://worldsbiggestpacman.com/"},
+  {name:"Run 2", url:"https://www.run2.io/"},
+  {name:"Zombs Royale", url:"https://zombsroyale.io/"},
+  {name:"Vex 3", url:"https://vex3.io/"},
+  {name:"Vex 4", url:"https://vex4.io/"},
+  {name:"Raft Wars", url:"https://www.coolmathgames.com/0-raft-wars"},
+  {name:"Madalin Stunt Cars 2", url:"https://www.crazygames.com/game/madalin-stunt-cars-2"},
+  {name:"Moto X3M", url:"https://www.motox3m.io/"},
+  {name:"Paper Minecraft", url:"https://paper-minecraft.com/"},
+  {name:"Duck Life", url:"https://www.coolmathgames.com/0-duck-life"},
+  {name:"Fireboy and Watergirl", url:"https://www.coolmathgames.com/0-fireboy-and-watergirl-1-forest-temple"},
+  {name:"Clustertruck", url:"https://www.crazygames.com/game/clustertruck"},
+  {name:"Tank Trouble 2", url:"https://tanktrouble2.com/"},
+  {name:"Flip Master", url:"https://www.crazygames.com/game/flip-master"},
+  {name:"Rooftop Snipers", url:"https://www.crazygames.com/game/rooftop-snipers"},
+  {name:"Basketball Stars", url:"https://www.crazygames.com/game/basketball-stars"},
+  {name:"Madness Interactive", url:"https://www.crazygames.com/game/madness-interactive"},
+  {name:"Slope Racing", url:"https://www.crazygames.com/game/slope-racing"},
+  {name:"Snake", url:"https://playsnake.org/"},
+  {name:"Temple Run Online", url:"https://www.crazygames.com/game/temple-run"},
+  {name:"Soccer Physics", url:"https://www.crazygames.com/game/soccer-physics"},
+  {name:"Super Smash Flash 2", url:"https://www.super-smash-flash.com/ssf2/"},
+  {name:"Pixel Gun 3D", url:"https://pixelgun3d.io/"},
+  {name:"Slope Unblocked", url:"https://slopeunblocked.org/"},
+  {name:"Basketball Legends", url:"https://www.crazygames.com/game/basketball-legends"},
+  {name:"Moto X3M Pool Party", url:"https://www.crazygames.com/game/moto-x3m-pool-party"}
+];
+
+// create game cards with placeholder clickable
+games.forEach(game=>{
+  const div=document.createElement("div");
+  div.className="game";
+  div.dataset.name=game.name.toLowerCase();
+  div.dataset.url=game.url;
+  div.innerHTML=`
+    <h4>${game.name}</h4>
+    <div class="iframe-placeholder">Click to Load Game</div>
+    <button onclick="fullscreen(this)">Fullscreen</button>
+  `;
+  gameGrid.appendChild(div);
+
+  const placeholder = div.querySelector(".iframe-placeholder");
+  placeholder.addEventListener("click", ()=>{
+    if(!placeholder.dataset.loaded){
+      const iframe=document.createElement("iframe");
+      iframe.src=game.url;
+      iframe.title=game.name;
+      iframe.loading="lazy";
+      placeholder.replaceWith(iframe);
+      placeholder.dataset.loaded=true;
     }
+  });
+});
 
-    const gameGrid = document.getElementById("gameGrid");
-    const games = [
-      {name: "Minecraft Classic", url: "https://classic.minecraft.net"},
-      {name: "Geometry Dash", url: "https://geometrydash.io"},
-      {name: "Slope", url: "https://slopegame.io"},
-      {name: "Run 3", url: "https://run3.io"},
-      {name: "Flappy Bird", url: "https://flappybird.io"},
-      {name: "Retro Bowl", url: "https://retrobowl.me"},
-      {name: "Agar.io", url: "https://agar.io"},
-      {name: "Slither.io", url: "https://slither.io"},
-      {name: "Cookie Clicker", url: "https://orteil.dashnet.org/cookieclicker/"},
-      {name: "Paper.io 2", url: "https://paper-io.com/"},
-      {name: "Krunker.io", url: "https://krunker.io/"},
-      {name: "Bonk.io", url: "https://bonk.io/"},
-      {name: "Tank Trouble", url: "https://tanktrouble.com/"},
-      {name: "Shell Shockers", url: "https://shellshock.io/"},
-      {name: "Diep.io", url: "https://diep.io/"},
-      {name: "Superhot", url: "https://superhotgame.com/"},
-      {name: "Tetris", url: "https://tetris.com/play-tetris"},
-      {name: "Pac-Man", url: "https://www.google.com/logos/2010/pacman10-i.html"},
-      {name: "Frogger", url: "https://froggerclassic.com/"},
-      {name: "Stick Fight: The Game Online", url: "https://stickfightgame.com/"},
-      {name: "Little Alchemy 2", url: "https://littlealchemy2.com/"},
-      {name: "2048", url: "https://play2048.co/"},
-      {name: "Happy Wheels", url: "https://totaljerkface.com/happy_wheels.tjf"},
-      {name: "Line Rider", url: "https://linerider.com/"},
-      {name: "QWOP", url: "https://www.foddy.net/Athletics.html"},
-      {name: "World’s Biggest Pac-Man", url: "https://worldsbiggestpacman.com/"},
-      {name: "Run 2", url: "https://www.run2.io/"},
-      {name: "Zombs Royale", url: "https://zombsroyale.io/"},
-      {name: "Vex 3", url: "https://vex3.io/"},
-      {name: "Vex 4", url: "https://vex4.io/"},
-      {name: "Raft Wars", url: "https://www.coolmathgames.com/0-raft-wars"},
-      {name: "Madalin Stunt Cars 2", url: "https://www.crazygames.com/game/madalin-stunt-cars-2"},
-      {name: "Moto X3M", url: "https://www.motox3m.io/"},
-      {name: "Paper Minecraft", url: "https://paper-minecraft.com/"},
-      {name: "Duck Life", url: "https://www.coolmathgames.com/0-duck-life"},
-      {name: "Fireboy and Watergirl", url: "https://www.coolmathgames.com/0-fireboy-and-watergirl-1-forest-temple"},
-      {name: "Clustertruck", url: "https://www.crazygames.com/game/clustertruck"},
-      {name: "Tank Trouble 2", url: "https://tanktrouble2.com/"},
-      {name: "Flip Master", url: "https://www.crazygames.com/game/flip-master"},
-      {name: "Rooftop Snipers", url: "https://www.crazygames.com/game/rooftop-snipers"},
-      {name: "Basketball Stars", url: "https://www.crazygames.com/game/basketball-stars"},
-      {name: "Madness Interactive", url: "https://www.crazygames.com/game/madness-interactive"},
-      {name: "Slope Racing", url: "https://www.crazygames.com/game/slope-racing"},
-      {name: "Snake", url: "https://playsnake.org/"},
-      {name: "Temple Run Online", url: "https://www.crazygames.com/game/temple-run"},
-      {name: "Soccer Physics", url: "https://www.crazygames.com/game/soccer-physics"},
-      {name: "Super Smash Flash 2", url: "https://www.super-smash-flash.com/ssf2/"},
-      {name: "Pixel Gun 3D", url: "https://pixelgun3d.io/"},
-      {name: "Slope Unblocked", url: "https://slopeunblocked.org/"},
-      {name: "Basketball Legends", url: "https://www.crazygames.com/game/basketball-legends"},
-      {name: "Moto X3M Pool Party", url: "https://www.crazygames.com/game/moto-x3m-pool-party"}
-    ];
+// Debounce search
+let searchTimeout;
+document.getElementById("gameSearch").addEventListener("keyup", ()=>{
+  clearTimeout(searchTimeout);
+  searchTimeout=setTimeout(filterGames,150);
+});
 
-    gameGrid.innerHTML = "";
+function filterGames(){
+  const search=document.getElementById("gameSearch").value.toLowerCase();
+  document.querySelectorAll(".game").forEach(game=>{
+    game.style.display=game.dataset.name.includes(search)?"block":"none";
+  });
+}
 
-    // Create game cards with placeholder for iframe
-    games.forEach(game => {
-      const div = document.createElement("div");
-      div.className = "game";
-      div.dataset.name = game.name.toLowerCase();
-      div.dataset.url = game.url; // store URL for lazy load
-      div.innerHTML = `
-        <h4>${game.name}</h4>
-        <div class="iframe-placeholder" style="height:200px;"></div>
-        <button onclick="fullscreen(this)">Fullscreen</button>
-      `;
-      gameGrid.appendChild(div);
-    });
-
-    // IntersectionObserver to lazy load iframes
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const div = entry.target;
-          const placeholder = div.querySelector(".iframe-placeholder");
-          if (!placeholder.dataset.loaded) {
-            const iframe = document.createElement("iframe");
-            iframe.src = div.dataset.url;
-            iframe.title = div.dataset.name;
-            iframe.loading = "lazy";
-            placeholder.replaceWith(iframe);
-            placeholder.dataset.loaded = true;
-          }
-          observer.unobserve(div);
-        }
-      });
-    }, {rootMargin: "200px 0px"});
-
-    document.querySelectorAll(".game").forEach(game => observer.observe(game));
-
-    function filterGames() {
-      const search = document.getElementById("gameSearch").value.toLowerCase();
-      document.querySelectorAll(".game").forEach(game => {
-        game.style.display = game.dataset.name.includes(search) ? "block" : "none";
-      });
-    }
-
-    function fullscreen(btn) {
-      const iframe = btn.previousElementSibling.tagName === "IFRAME" ? btn.previousElementSibling : null;
-      if (iframe) {
-        if (iframe.requestFullscreen) iframe.requestFullscreen();
-        else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-        else alert("Fullscreen not supported for this browser.");
-      } else {
-        alert("Game hasn't loaded yet!");
-      }
-    }
-  </script>
+function fullscreen(btn){
+  const iframe=btn.previousElementSibling.tagName==="IFRAME"?btn.previousElementSibling:null;
+  if(iframe){
+    if(iframe.requestFullscreen) iframe.requestFullscreen();
+    else if(iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+    else alert("Fullscreen not supported for this browser.");
+  } else alert("Game hasn't loaded yet!");
+}
+</script>
 </body>
 </html>
