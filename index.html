@@ -64,9 +64,13 @@
   <header>
     <h1>Benny's Bussin Website!!!</h1>
     <p>I made this myself 😎</p>
+    <nav style="margin-top:16px;">
+      <a href="#home" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Home</a>
+      <a href="#games" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Games</a>
+    </nav>
   </header>
 
-  <main>
+  <main id="home">
     <div class="card">
       <h2>About Me</h2>
       <p>
@@ -78,6 +82,16 @@
       <h2>Cool Stuff</h2>
       <p>Click the button below just to prove this site actually does something.</p>
       <button onclick="sayHi()">Click me</button>
+    </div>
+
+    <div class="card" id="games">
+      <h2>Games</h2>
+      <p>More games coming soon. Here are a few starters:</p>
+      <ul>
+        <li><a href="https://scratch.mit.edu" target="_blank" style="color:#38bdf8;">Scratch Games</a></li>
+        <li><a href="https://geometrydash.io" target="_blank" style="color:#38bdf8;">Geometry Dash</a></li>
+        <li><a href="https://classic.minecraft.net" target="_blank" style="color:#38bdf8;">Minecraft Classic</a></li>
+      </ul>
     </div>
   </main>
 
