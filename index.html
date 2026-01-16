@@ -29,7 +29,7 @@ footer { text-align:center; padding:20px; color:#94a3b8; border-top:1px solid #1
 .game { background:#020617; border:1px solid #1e293b; border-radius:12px; padding:12px; transition: transform 0.2s, box-shadow 0.2s;}
 .game:hover { transform:translateY(-4px); box-shadow:0 4px 12px rgba(0,0,0,0.5);}
 .game h4 { margin:8px 0; text-align:center;}
-.iframe-placeholder { display:flex; justify-content:center; align-items:center; height:200px; background:#1e293b; border-radius:8px; cursor:pointer; color:#38bdf8; font-weight:bold; }
+.iframe-placeholder { display:flex; justify-content:center; align-items:center; height:200px; background:#1e293b; border-radius:8px; cursor:pointer; color:#38bdf8; font-weight:bold; text-align:center; padding:10px;}
 input[type="text"] { width:100%; padding:12px; border-radius:8px; border:1px solid #1e293b; margin-bottom:20px; background:#020617; color:#e5e7eb;}
 html { scroll-behavior: smooth;}
 </style>
@@ -69,87 +69,91 @@ html { scroll-behavior: smooth;}
 function sayHi(){ alert("Yo! This was made by me aka Bentley and it's bussin!!."); }
 
 const gameGrid = document.getElementById("gameGrid");
+
+// List of 50 games with iframe-friendly flag
 const games = [
-  {name:"Minecraft Classic", url:"https://classic.minecraft.net"},
-  {name:"Geometry Dash", url:"https://geometrydash.io"},
-  {name:"Slope", url:"https://slopegame.io"},
-  {name:"Run 3", url:"https://run3.io"},
-  {name:"Flappy Bird", url:"https://flappybird.io"},
-  {name:"Retro Bowl", url:"https://retrobowl.me"},
-  {name:"Agar.io", url:"https://agar.io"},
-  {name:"Slither.io", url:"https://slither.io"},
-  {name:"Cookie Clicker", url:"https://orteil.dashnet.org/cookieclicker/"},
-  {name:"Paper.io 2", url:"https://paper-io.com/"},
-  {name:"Krunker.io", url:"https://krunker.io"},
-  {name:"Bonk.io", url:"https://bonk.io/"},
-  {name:"Tank Trouble", url:"https://tanktrouble.com/"},
-  {name:"Shell Shockers", url:"https://shellshock.io/"},
-  {name:"Diep.io", url:"https://diep.io/"},
-  {name:"Superhot", url:"https://superhotgame.com/"},
-  {name:"Tetris", url:"https://tetris.com/play-tetris"},
-  {name:"Pac-Man", url:"https://www.google.com/logos/2010/pacman10-i.html"},
-  {name:"Frogger", url:"https://froggerclassic.com/"},
-  {name:"Stick Fight: The Game Online", url:"https://stickfightgame.com/"},
-  {name:"Little Alchemy 2", url:"https://littlealchemy2.com/"},
-  {name:"2048", url:"https://play2048.co/"},
-  {name:"Happy Wheels", url:"https://totaljerkface.com/happy_wheels.tjf"},
-  {name:"Line Rider", url:"https://linerider.com/"},
-  {name:"QWOP", url:"https://www.foddy.net/Athletics.html"},
-  {name:"World’s Biggest Pac-Man", url:"https://worldsbiggestpacman.com/"},
-  {name:"Run 2", url:"https://www.run2.io/"},
-  {name:"Zombs Royale", url:"https://zombsroyale.io/"},
-  {name:"Vex 3", url:"https://vex3.io/"},
-  {name:"Vex 4", url:"https://vex4.io/"},
-  {name:"Raft Wars", url:"https://www.coolmathgames.com/0-raft-wars"},
-  {name:"Madalin Stunt Cars 2", url:"https://www.crazygames.com/game/madalin-stunt-cars-2"},
-  {name:"Moto X3M", url:"https://www.motox3m.io/"},
-  {name:"Paper Minecraft", url:"https://paper-minecraft.com/"},
-  {name:"Duck Life", url:"https://www.coolmathgames.com/0-duck-life"},
-  {name:"Fireboy and Watergirl", url:"https://www.coolmathgames.com/0-fireboy-and-watergirl-1-forest-temple"},
-  {name:"Clustertruck", url:"https://www.crazygames.com/game/clustertruck"},
-  {name:"Tank Trouble 2", url:"https://tanktrouble2.com/"},
-  {name:"Flip Master", url:"https://www.crazygames.com/game/flip-master"},
-  {name:"Rooftop Snipers", url:"https://www.crazygames.com/game/rooftop-snipers"},
-  {name:"Basketball Stars", url:"https://www.crazygames.com/game/basketball-stars"},
-  {name:"Madness Interactive", url:"https://www.crazygames.com/game/madness-interactive"},
-  {name:"Slope Racing", url:"https://www.crazygames.com/game/slope-racing"},
-  {name:"Snake", url:"https://playsnake.org/"},
-  {name:"Temple Run Online", url:"https://www.crazygames.com/game/temple-run"},
-  {name:"Soccer Physics", url:"https://www.crazygames.com/game/soccer-physics"},
-  {name:"Super Smash Flash 2", url:"https://www.super-smash-flash.com/ssf2/"},
-  {name:"Pixel Gun 3D", url:"https://pixelgun3d.io/"},
-  {name:"Slope Unblocked", url:"https://slopeunblocked.org/"},
-  {name:"Basketball Legends", url:"https://www.crazygames.com/game/basketball-legends"},
-  {name:"Moto X3M Pool Party", url:"https://www.crazygames.com/game/moto-x3m-pool-party"}
+  {name:"Minecraft Classic", url:"https://classic.minecraft.net", embed:false},
+  {name:"Geometry Dash", url:"https://geometrydash.io", embed:true},
+  {name:"Slope", url:"https://slopegame.io", embed:true},
+  {name:"Run 3", url:"https://run3.io", embed:true},
+  {name:"Flappy Bird", url:"https://flappybird.io", embed:true},
+  {name:"Retro Bowl", url:"https://retrobowl.me", embed:true},
+  {name:"Agar.io", url:"https://agar.io", embed:false},
+  {name:"Slither.io", url:"https://slither.io", embed:true},
+  {name:"Cookie Clicker", url:"https://orteil.dashnet.org/cookieclicker/", embed:true},
+  {name:"Paper.io 2", url:"https://paper-io.com/", embed:true},
+  {name:"Krunker.io", url:"https://krunker.io/", embed:false},
+  {name:"Bonk.io", url:"https://bonk.io/", embed:true},
+  {name:"Tank Trouble", url:"https://tanktrouble.com/", embed:true},
+  {name:"Shell Shockers", url:"https://shellshock.io/", embed:true},
+  {name:"Diep.io", url:"https://diep.io/", embed:true},
+  {name:"Superhot", url:"https://superhotgame.com/", embed:true},
+  {name:"Tetris", url:"https://tetris.com/play-tetris", embed:true},
+  {name:"Pac-Man", url:"https://www.google.com/logos/2010/pacman10-i.html", embed:false},
+  {name:"Frogger", url:"https://froggerclassic.com/", embed:true},
+  {name:"Stick Fight: The Game Online", url:"https://stickfightgame.com/", embed:true},
+  {name:"Little Alchemy 2", url:"https://littlealchemy2.com/", embed:true},
+  {name:"2048", url:"https://play2048.co/", embed:true},
+  {name:"Happy Wheels", url:"https://totaljerkface.com/happy_wheels.tjf", embed:false},
+  {name:"Line Rider", url:"https://linerider.com/", embed:true},
+  {name:"QWOP", url:"https://www.foddy.net/Athletics.html", embed:false},
+  {name:"World’s Biggest Pac-Man", url:"https://worldsbiggestpacman.com/", embed:true},
+  {name:"Run 2", url:"https://www.run2.io/", embed:true},
+  {name:"Zombs Royale", url:"https://zombsroyale.io/", embed:false},
+  {name:"Vex 3", url:"https://vex3.io/", embed:true},
+  {name:"Vex 4", url:"https://vex4.io/", embed:true},
+  {name:"Raft Wars", url:"https://www.coolmathgames.com/0-raft-wars", embed:false},
+  {name:"Madalin Stunt Cars 2", url:"https://www.crazygames.com/game/madalin-stunt-cars-2", embed:true},
+  {name:"Moto X3M", url:"https://www.motox3m.io/", embed:true},
+  {name:"Paper Minecraft", url:"https://paper-minecraft.com/", embed:false},
+  {name:"Duck Life", url:"https://www.coolmathgames.com/0-duck-life", embed:true},
+  {name:"Fireboy and Watergirl", url:"https://www.coolmathgames.com/0-fireboy-and-watergirl-1-forest-temple", embed:true},
+  {name:"Clustertruck", url:"https://www.crazygames.com/game/clustertruck", embed:true},
+  {name:"Tank Trouble 2", url:"https://tanktrouble2.com/", embed:true},
+  {name:"Flip Master", url:"https://www.crazygames.com/game/flip-master", embed:true},
+  {name:"Rooftop Snipers", url:"https://www.crazygames.com/game/rooftop-snipers", embed:true},
+  {name:"Basketball Stars", url:"https://www.crazygames.com/game/basketball-stars", embed:true},
+  {name:"Madness Interactive", url:"https://www.crazygames.com/game/madness-interactive", embed:true},
+  {name:"Slope Racing", url:"https://www.crazygames.com/game/slope-racing", embed:true},
+  {name:"Snake", url:"https://playsnake.org/", embed:true},
+  {name:"Temple Run Online", url:"https://www.crazygames.com/game/temple-run", embed:true},
+  {name:"Soccer Physics", url:"https://www.crazygames.com/game/soccer-physics", embed:true},
+  {name:"Super Smash Flash 2", url:"https://www.super-smash-flash.com/ssf2/", embed:true},
+  {name:"Pixel Gun 3D", url:"https://pixelgun3d.io/", embed:true},
+  {name:"Slope Unblocked", url:"https://slopeunblocked.org/", embed:true},
+  {name:"Basketball Legends", url:"https://www.crazygames.com/game/basketball-legends", embed:true},
+  {name:"Moto X3M Pool Party", url:"https://www.crazygames.com/game/moto-x3m-pool-party", embed:true}
 ];
 
-// create game cards with placeholder clickable
+// Create game cards
 games.forEach(game=>{
   const div=document.createElement("div");
   div.className="game";
   div.dataset.name=game.name.toLowerCase();
-  div.dataset.url=game.url;
-  div.innerHTML=`
-    <h4>${game.name}</h4>
+  if(game.embed){
+    div.innerHTML=`<h4>${game.name}</h4>
     <div class="iframe-placeholder">Click to Load Game</div>
-    <button onclick="fullscreen(this)">Fullscreen</button>
-  `;
+    <button onclick="fullscreen(this)">Fullscreen</button>`;
+    const placeholder=div.querySelector(".iframe-placeholder");
+    placeholder.addEventListener("click", ()=>{
+      if(!placeholder.dataset.loaded){
+        const iframe=document.createElement("iframe");
+        iframe.src=game.url;
+        iframe.title=game.name;
+        iframe.loading="lazy";
+        placeholder.replaceWith(iframe);
+        placeholder.dataset.loaded=true;
+      }
+    });
+  } else {
+    // For blocked games: clickable link only
+    div.innerHTML=`<h4>${game.name}</h4>
+    <div class="iframe-placeholder" onclick="window.open('${game.url}','_blank')">Click to Open Game</div>`;
+  }
   gameGrid.appendChild(div);
-
-  const placeholder = div.querySelector(".iframe-placeholder");
-  placeholder.addEventListener("click", ()=>{
-    if(!placeholder.dataset.loaded){
-      const iframe=document.createElement("iframe");
-      iframe.src=game.url;
-      iframe.title=game.name;
-      iframe.loading="lazy";
-      placeholder.replaceWith(iframe);
-      placeholder.dataset.loaded=true;
-    }
-  });
 });
 
-// Debounce search
+// Debounced search
 let searchTimeout;
 document.getElementById("gameSearch").addEventListener("keyup", ()=>{
   clearTimeout(searchTimeout);
@@ -169,7 +173,7 @@ function fullscreen(btn){
     if(iframe.requestFullscreen) iframe.requestFullscreen();
     else if(iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
     else alert("Fullscreen not supported for this browser.");
-  } else alert("Game hasn't loaded yet!");
+  } else alert("Game cannot be fullscreen or hasn't loaded yet!");
 }
 </script>
 </body>
