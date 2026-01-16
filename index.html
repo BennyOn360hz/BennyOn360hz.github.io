@@ -1,131 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Bentley's Bussin Website!!!</title>
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
-}
-
-header {
-  padding: 24px;
-  text-align: center;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-}
-
-main {
-  max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
-}
-
-.card {
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-#gameGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.game {
-  background: #020617;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
-  padding: 12px;
-}
-
-.game h4 {
-  margin: 8px 0;
-  text-align: center;
-}
-
-.game iframe {
-  width: 100%;
-  height: 200px;
-  border: none;
-  border-radius: 8px;
-}
-
-button {
-  width: 100%;
-  margin-top: 8px;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #38bdf8;
-  cursor: pointer;
-}
-
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #94a3b8;
-  border-top: 1px solid #1e293b;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bentley's Bussin Website!!!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    header {
+      padding: 24px;
+      text-align: center;
+      background: #020617;
+      border-bottom: 1px solid #1e293b;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+    header p {
+      margin-top: 8px;
+      color: #94a3b8;
+    }
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .card {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card h2 {
+      margin-top: 0;
+    }
+    button {
+      background: #38bdf8;
+      color: #020617;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #94a3b8;
+      border-top: 1px solid #1e293b;
+    }
+    #gameGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .game {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .game h4 {
+      margin: 8px 0;
+      text-align: center;
+    }
+    .game iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <h1>Bentley's Bussin Website!!!</h1>
+    <p>I made this myself 😎</p>
+    <nav style="margin-top:16px;">
+      <a href="#home" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Home</a>
+      <a href="#games" style="margin:0 12px;color:#38bdf8;text-decoration:none;">Games</a>
+    </nav>
+  </header>
 
-<header>
-  <h1>Bentley's Bussin Website!!!</h1>
-  <p>I made this myself 😎</p>
-</header>
+  <main id="home">
+    <div class="card">
+      <h2>About Me</h2>
+      <p>This is my personal website. I can put games, videos, projects, or anything I want here.</p>
+    </div>
 
-<main>
-  <div class="card">
-    <h2>Game Arcade</h2>
+    <div class="card">
+      <h2>Cool Stuff</h2>
+      <p>Click the button below just to prove this site actually does something.</p>
+      <button onclick="sayHi()">Click me</button>
+    </div>
 
-    <input
-      id="gameSearch"
-      placeholder="Search games..."
-      style="width:100%;padding:12px;border-radius:8px;border:1px solid #1e293b;background:#020617;color:#e5e7eb;"
-      onkeyup="filterGames()"
-    />
+    <div class="card" id="games">
+      <h2>Game Arcade</h2>
+      <input type="text" id="gameSearch" placeholder="Search games..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #1e293b;margin-bottom:20px;background:#020617;color:#e5e7eb;" onkeyup="filterGames()" />
+      <div id="gameGrid"><p>Loading games…</p></div>
+    </div>
+  </main>
 
-    <br><br>
+  <footer>
+    © 2026 Bentley's Bussin Website!!!
+  </footer>
 
-    <div id="gameGrid"></div>
-  </div>
-</main>
+  <script>
+    function sayHi() {
+      alert("Yo! This was made by me aka Bentley and its bussin!!.");
+    }
 
-<footer>
-  © 2026 Bentley's Bussin Website!!!
-</footer>
+    const gameGrid = document.getElementById("gameGrid");
+    const games = [
+      {name: "Minecraft Classic", url: "https://classic.minecraft.net"},
+      {name: "Geometry Dash", url: "https://geometrydash.io"},
+      {name: "Slope", url: "https://slopegame.io"},
+      {name: "Run 3", url: "https://run3.io"},
+      {name: "Flappy Bird", url: "https://flappybird.io"},
+      {name: "Retro Bowl", url: "https://retrobowl.me"}
+    ];
 
-<script>
-const games = [
-  { name: "Minecraft Classic", url: "https://classic.minecraft.net" },
-  { name: "Geometry Dash", url: "https://geometrydash.io" },
-  { name: "Slope", url: "https://slopegame.io" },
-  { name: "Run 3", url: "https://run3.io" },
-  { name: "Flappy Bird", url: "https://flappybird.io" },
-  { name: "Retro Bowl", url: "https://retrobowl.me" },
-];
+    while (games.length < 50) {
+      games.push({name: "Arcade Game " + (games.length+1), url: "https://geometrydash.io"});
+    }
 
-// duplicate to reach 50+
-while (games.length < 50) {
-  games.push({
-    name: "Arcade Game " + games.length,
-    url: "https://geometrydash.io"
-  });
-}
+    gameGrid.innerHTML = "";
 
-const grid = document.getElementById("gameGrid");
+    games.forEach(game => {
+      const div = document.createElement("div");
+      div.className = "game";
+      div.dataset.name = game.name.toLowerCase();
+      div.innerHTML = `
+        <h4>${game.name}</h4>
+        <iframe src="${game.url}" loading="lazy"></iframe>
+        <button onclick="fullscreen(this)">Fullscreen</button>
+      `;
+      gameGrid.appendChild(div);
+    });
 
-games.forEach(game => {
-  const div = document.createElement("div");
-  div.className = "g
+    function filterGames() {
+      const search = document.getElementById("gameSearch").value.toLowerCase();
+      document.querySelectorAll(".game").forEach(game => {
+        game.style.display = game.dataset.name.includes(search) ? "block" : "none";
+      });
+    }
+
+    function fullscreen(btn) {
+      const iframe = btn.previousElementSibling;
+      if (iframe.requestFullscreen) iframe.requestFullscreen();
+    }
+  </script>
+</body>
+</html>
