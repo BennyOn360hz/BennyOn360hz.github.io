@@ -1,136 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bentley's Bussin Website Arcade</title>
+<title>Dash Fan Game</title>
 <style>
-body { margin:0; font-family:Arial,Helvetica,sans-serif; background:#0f172a; color:#e5e7eb; }
-header { padding:24px; text-align:center; background:#020617; border-bottom:1px solid #1e293b; }
-header h1 { margin:0; font-size:2.2rem; }
-header p { margin-top:8px; color:#94a3b8; }
-main { max-width:1200px; margin:40px auto; padding:0 20px; }
-#gameGrid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:16px; }
-.game { background:#020617; border:1px solid #1e293b; border-radius:12px; padding:12px; text-align:center; transition: transform 0.2s, box-shadow 0.2s; cursor:pointer; }
-.game:hover { transform:translateY(-4px); box-shadow:0 4px 12px rgba(0,0,0,0.5); }
-.game img { width:100%; border-radius:8px; margin-bottom:8px; }
-input[type="text"] { width:100%; padding:12px; border-radius:8px; border:1px solid #1e293b; margin-bottom:20px; background:#020617; color:#e5e7eb; }
-footer { text-align:center; padding:20px; color:#94a3b8; border-top:1px solid #1e293b; }
+body{margin:0;overflow:hidden;background:#050510;font-family:sans-serif}
+canvas{display:block}
+button{font-size:18px;padding:10px;margin:5px}
+#menu,#editorUI{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;text-align:center}
+#editorUI{top:10px;left:10px;transform:none}
 </style>
 </head>
 <body>
 
-<header>
-<h1>Bentley's Bussin Website Arcade</h1>
-<p>Click a game to play it!</p>
-</header>
+<canvas id="c"></canvas>
 
-<main>
-<input type="text" id="gameSearch" placeholder="Search games...">
-<div id="gameGrid"></div>
-</main>
+<div id="menu">
+<h1>Dash Fan Game</h1>
+<button onclick="startGame()">Play</button>
+<button onclick="startEditor()">Level Editor</button>
+</div>
 
-<footer>© 2026 Bentley's Bussin Website</footer>
+<div id="editorUI" style="display:none">
+<button onclick="tool='block'">Block</button>
+<button onclick="tool='spike'">Spike</button>
+<button onclick="saveLevel()">Save</button>
+<button onclick="loadLevel()">Load</button>
+<button onclick="exitEditor()">Exit</button>
+</div>
 
 <script>
-// 100+ CrazyGames titles including your requested games
-const games = [
-{name:"1v1.LOL", url:"https://www.crazygames.com/game/1v1lol"},
-{name:"Minecraft Classic", url:"https://classic.minecraft.net"},
-{name:"Geometry Dash", url:"https://geometrydash.io"},
-{name:"Smash Karts", url:"https://www.crazygames.com/game/smash-karts"},
-{name:"Shell Shockers", url:"https://www.crazygames.com/game/shell-shockers"},
-{name:"Moto X3M", url:"https://www.crazygames.com/game/moto-x3m"},
-{name:"Madalin Stunt Cars 2", url:"https://www.crazygames.com/game/madalin-stunt-cars-2"},
-{name:"Basketball Stars", url:"https://www.crazygames.com/game/basketball-stars"},
-{name:"Stickman Hook", url:"https://www.crazygames.com/game/stickman-hook"},
-{name:"Paper.io 2", url:"https://www.crazygames.com/game/paper-io-2"},
-{name:"Crowd City", url:"https://www.crazygames.com/game/crowd-city"},
-{name:"Vex 3", url:"https://www.crazygames.com/game/vex-3"},
-{name:"Vex 4", url:"https://www.crazygames.com/game/vex-4"},
-{name:"Zombs Royale", url:"https://www.crazygames.com/game/zombs-royale-io"},
-{name:"Run 3", url:"https://www.crazygames.com/game/run-3"},
-{name:"Slope Racing", url:"https://www.crazygames.com/game/slope-racing"},
-{name:"Soccer Physics", url:"https://www.crazygames.com/game/soccer-physics"},
-{name:"Flip Master", url:"https://www.crazygames.com/game/flip-master"},
-{name:"Basketball Legends", url:"https://www.crazygames.com/game/basketball-legends"},
-{name:"Temple Run Online", url:"https://www.crazygames.com/game/temple-run-online"},
-{name:"Crazy Roll 3D", url:"https://www.crazygames.com/game/crazy-roll-3d"},
-{name:"Hanger 2", url:"https://www.crazygames.com/game/hanger-2"},
-{name:"Tank Trouble 2", url:"https://www.crazygames.com/game/tank-trouble-2"},
-{name:"Soccer Legends 2024", url:"https://www.crazygames.com/game/soccer-legends-2024"},
-{name:"Mini Golf Kingdom", url:"https://www.crazygames.com/game/mini-golf-kingdom"},
-{name:"Car Paints 3D", url:"https://www.crazygames.com/game/car-paints-3d"},
-{name:"Crazy Surf", url:"https://www.crazygames.com/game/crazy-surf"},
-{name:"Mad City Multiplayer", url:"https://www.crazygames.com/game/mad-city-multiplayer"},
-{name:"Idle Breakout", url:"https://www.crazygames.com/game/idle-breakout"},
-{name:"Parking Fury 3D", url:"https://www.crazygames.com/game/parking-fury-3d"},
-{name:"Drift Boss", url:"https://www.crazygames.com/game/drift-boss"},
-{name:"Air Wars 2", url:"https://www.crazygames.com/game/air-wars-2"},
-{name:"Bullet Force", url:"https://www.crazygames.com/game/bullet-force-multiplayer"},
-{name:"Crowd City 2", url:"https://www.crazygames.com/game/crowd-city-2"},
-{name:"Skibidi Toilet Dash", url:"https://www.crazygames.com/game/skibidi-toilet-dash"},
-{name:"Idle Tank", url:"https://www.crazygames.com/game/idle-tank"},
-{name:"Tower Swap", url:"https://www.crazygames.com/game/tower-swap"},
-{name:"Ultimate Boxing", url:"https://www.crazygames.com/game/ultimate-boxing"},
-{name:"March of War", url:"https://www.crazygames.com/game/march-of-war"},
-{name:"Transform Rush", url:"https://www.crazygames.com/game/transform-rush"},
-{name:"Crazy Wave Riders 2", url:"https://www.crazygames.com/game/crazy-wave-riders-2"},
-{name:"Farm Frenzy", url:"https://www.crazygames.com/game/farm-frenzy"},
-{name:"Rocket Goal", url:"https://www.crazygames.com/game/rocket-goal"},
-{name:"Helix Jump 3D", url:"https://www.crazygames.com/game/helix-jump-3d"},
-{name:"Slope Unblocked", url:"https://www.crazygames.com/game/slope-unblocked"},
-{name:"Temple Run", url:"https://www.crazygames.com/game/temple-run"},
-{name:"Mad Day Special", url:"https://www.crazygames.com/game/mad-day-special"},
-{name:"Rooftop Snipers", url:"https://www.crazygames.com/game/rooftop-snipers"},
-{name:"Soccer Random", url:"https://www.crazygames.com/game/soccer-random"},
-{name:"Basket Random", url:"https://www.crazygames.com/game/basket-random"},
-{name:"Run 2", url:"https://www.crazygames.com/game/run-2"},
-{name:"ZigZag Drop", url:"https://www.crazygames.com/game/zigzag-drop"},
-{name:"Crazy Dino Park", url:"https://www.crazygames.com/game/crazy-dino-park"},
-{name:"Ninja Clash Heroes", url:"https://www.crazygames.com/game/ninja-clash-heroes"},
-{name:"Geometry Dash Classic", url:"https://www.crazygames.com/game/geometry-dash-classic"},
-{name:"Tank Arena Multiplayer", url:"https://www.crazygames.com/game/tank-arena-multiplayer"},
-{name:"League of Stickman", url:"https://www.crazygames.com/game/league-of-stickman"},
-{name:"Color Roll 3D", url:"https://www.crazygames.com/game/color-roll-3d"},
-{name:"Top Smash Karts", url:"https://www.crazygames.com/game/top-smash-karts"},
-{name:"Crazy Snail Rush", url:"https://www.crazygames.com/game/crazy-snail-rush"},
-{name:"Cops N Robbers Multiplayer", url:"https://www.crazygames.com/game/cops-n-robbers-multiplayer"},
-{name:"Car Driving Simulator 3D", url:"https://www.crazygames.com/game/car-driving-simulator-3d"},
-{name:"Fishing Clash 3D", url:"https://www.crazygames.com/game/fishing-clash-3d"},
-{name:"Beginner’s Fishing", url:"https://www.crazygames.com/game/beginners-fishing"},
-{name:"Tennis Legends", url:"https://www.crazygames.com/game/tennis-legends"},
-{name:"Cookie Clicker", url:"https://www.crazygames.com/game/cookie-clicker"},
-{name:"Idle Tank", url:"https://www.crazygames.com/game/idle-tank"},
-{name:"Tower Swap", url:"https://www.crazygames.com/game/tower-swap"},
-{name:"Ultimate Boxing", url:"https://www.crazygames.com/game/ultimate-boxing"},
-{name:"March of War", url:"https://www.crazygames.com/game/march-of-war"},
-{name:"Transform Rush", url:"https://www.crazygames.com/game/transform-rush"},
-{name:"Crazy Wave Riders 2", url:"https://www.crazygames.com/game/crazy-wave-riders-2"},
-{name:"Farm Frenzy", url:"https://www.crazygames.com/game/farm-frenzy"},
-// … you can continue adding until 100+
-];
+const canvas=document.getElementById("c");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+onresize=()=>{canvas.width=innerWidth;canvas.height=innerHeight}
 
-const gameGrid = document.getElementById("gameGrid");
+let state="menu";
+let level=[];
+let tool="block";
+let progress=0;
+let speed=6;
+let gravity=0.8;
+let jump=-13;
+let gameOver=false;
 
-games.forEach(game => {
-  const div = document.createElement("div");
-  div.className = "game";
-  const thumbUrl = `https://via.placeholder.com/300x200.png?text=${encodeURIComponent(game.name)}`;
-  div.innerHTML = `<img src="${thumbUrl}" alt="${game.name}"><h4>${game.name}</h4>`;
-  div.onclick = () => window.open(game.url, "_blank");
-  gameGrid.appendChild(div);
+const player={x:150,y:200,size:25,vy:0};
+
+function ground(){return canvas.height-80}
+
+function startGame(){
+ state="game";
+ document.getElementById("menu").style.display="none";
+}
+function startEditor(){
+ state="editor";
+ document.getElementById("menu").style.display="none";
+ document.getElementById("editorUI").style.display="block";
+}
+function exitEditor(){
+ document.getElementById("editorUI").style.display="none";
+ document.getElementById("menu").style.display="block";
+ state="menu";
+}
+
+addEventListener("keydown",e=>{
+ if(e.code==="Space"){
+  if(state==="game"){
+   if(player.y>=ground()-player.size)player.vy=jump;
+   if(gameOver)reset();
+  }
+ }
 });
 
-// Search
-document.getElementById("gameSearch").addEventListener("keyup", () => {
-  const search = document.getElementById("gameSearch").value.toLowerCase();
-  document.querySelectorAll(".game").forEach(game => {
-    const name = game.querySelector("h4").textContent.toLowerCase();
-    game.style.display = name.includes(search) ? "block" : "none";
+canvas.addEventListener("mousedown",e=>{
+ if(state==="editor"){
+  let x=e.clientX+progress;
+  let y=e.clientY;
+  level.push({x,y,type:tool});
+ }
+});
+
+function saveLevel(){
+ localStorage.setItem("dashLevel",JSON.stringify(level));
+ alert("Level saved");
+}
+function loadLevel(){
+ let data=localStorage.getItem("dashLevel");
+ if(data)level=JSON.parse(data);
+}
+
+function reset(){
+ progress=0;
+ player.y=200;
+ player.vy=0;
+ gameOver=false;
+}
+
+function collide(o){
+ return player.x+player.size>o.x-progress &&
+        player.x<o.x-progress+40 &&
+        player.y+player.size>o.y &&
+        player.y<o.y+40;
+}
+
+function drawNeon(x,y,w,h,color){
+ ctx.shadowBlur=15;
+ ctx.shadowColor=color;
+ ctx.fillStyle=color;
+ ctx.fillRect(x,y,w,h);
+ ctx.shadowBlur=0;
+}
+
+function update(){
+ ctx.fillStyle="#070716";
+ ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ if(state==="game"){
+  progress+=speed;
+
+  player.vy+=gravity;
+  player.y+=player.vy;
+  if(player.y>ground()-player.size){
+   player.y=ground()-player.size;
+   player.vy=0;
+  }
+
+  drawNeon(player.x,player.y,player.size,player.size,"cyan");
+
+  ctx.fillStyle="#0ff";
+  ctx.fillRect(0,ground(),canvas.width,80);
+
+  level.forEach(o=>{
+   let x=o.x-progress;
+   if(o.type==="block"){
+    drawNeon(x,o.y,40,40,"cyan");
+    if(collide(o))gameOver=true;
+   }
+   if(o.type==="spike"){
+    ctx.fillStyle="red";
+    ctx.beginPath();
+    ctx.moveTo(x,o.y+40);
+    ctx.lineTo(x+20,o.y);
+    ctx.lineTo(x+40,o.y+40);
+    ctx.fill();
+    if(collide(o))gameOver=true;
+   }
   });
-});
-</script>
 
+  let p=Math.min(progress/2000,1);
+  ctx.fillStyle="#0ff";
+  ctx.fillRect(0,0,canvas.width*p,8);
+
+  if(gameOver){
+   ctx.fillStyle="white";
+   ctx.font="40px sans-serif";
+   ctx.fillText("CLICK TO RESTART",canvas.width/2-200,canvas.height/2);
+  }
+ }
+
+ if(state==="editor"){
+  ctx.fillStyle="#0ff";
+  ctx.fillRect(0,ground(),canvas.width,80);
+  level.forEach(o=>{
+   if(o.type==="block")drawNeon(o.x-progress,o.y,40,40,"cyan");
+   if(o.type==="spike"){
+    ctx.fillStyle="red";
+    ctx.beginPath();
+    ctx.moveTo(o.x-progress,o.y+40);
+    ctx.lineTo(o.x-progress+20,o.y);
+    ctx.lineTo(o.x-progress+40,o.y+40);
+    ctx.fill();
+   }
+  });
+ }
+
+ requestAnimationFrame(update);
+}
+update();
+</script>
 </body>
 </html>
